@@ -13,6 +13,8 @@ export interface BaseInitItem {
   _height?: number;
   padding?: number;
   widthPercent?: number;
+  marginY?: number;
+  marginX?: number;
   x?: number;
   y?: number;
 }
@@ -107,7 +109,9 @@ export default class Waterfall<P = {}> {
     }
     if (Math.floor(initItem.width + this.nowRowWidth) > this.width) {
       this.isFirstLine = false;
-    } 
+    }
+    initItem.height += initItem.marginY || 0;
+    initItem.width += initItem.marginX || 0;
     const item: Item<P> = {
       ...initItem,
       x: this.nowRowMinBottomItem.x,
