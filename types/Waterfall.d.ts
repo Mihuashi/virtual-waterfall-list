@@ -12,6 +12,8 @@ export interface BaseInitItem {
     _height?: number;
     padding?: number;
     widthPercent?: number;
+    marginY?: number;
+    marginX?: number;
     x?: number;
     y?: number;
 }
@@ -30,8 +32,8 @@ export default class Waterfall<P = {}> {
     nowRow: Item<P>[];
     isFirstLine: boolean;
     options: Options;
-    readonly nowRowWidth: number;
-    readonly nowRowMinBottomItem: Item<{}> | Item<P>;
+    get nowRowWidth(): number;
+    get nowRowMinBottomItem(): Item<{}> | Item<P>;
     constructor(items: InitItem<P>[], options: Options);
     add(items: InitItem<P>[]): Item<P>[];
     calculateItemAndToItems(items: InitItem<P>[]): Item<P>[];
