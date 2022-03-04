@@ -73,9 +73,13 @@ export default class VirtualList<T = {}> {
     let index: number;
 
     if (items.length === 0) return [];
+    if (items.length <= 2) {
+      return items;
+    }
+    // find out whether these items in the viewport
     while (true) {
       index = Math.floor((fromIndex + endIndex) / 2);
-      if ((index === fromIndex && index !== endIndex) || index < 0) return [];
+      if (index <= 0) return [];
       const direction = this.getItemDirection(items[index], startY, endY);
       if (direction === -1) fromIndex = index;
       else if (direction === 1) endIndex = index;
@@ -100,6 +104,13 @@ export default class VirtualList<T = {}> {
     return items.slice(fromIndex, endIndex + 1);
   }
 
+  /**
+   * @param {Item<T>} item item to be checked
+   * @param {number} startY container startY
+   * @param {number} endY container endY
+   * @return {*} -1: above, 0: in, 1: below
+   * @memberof VirtualList
+   */
   getItemDirection(item: Item<T>, startY: number, endY: number) {
     if (item.height + item.y < startY - 200) return -1;
     if (item.y > endY + 200) return 1;
