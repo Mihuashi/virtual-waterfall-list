@@ -28,6 +28,7 @@ export default class VirtualList<T = {}> {
     this.listener = throttle(this._listener, 100);
     window.addEventListener('scroll', this.listener.bind(this));
     this._listener();
+    console.log('virtualList', this);
   }
 
   initOffsetTop() {
@@ -67,6 +68,14 @@ export default class VirtualList<T = {}> {
     this.emit('change', this.viewItems);
   }
 
+  /**
+   * get items array between startY and endY
+   * @param {Item<T>[]} items
+   * @param {number} startY
+   * @param {number} endY
+   * @return {*}  {Item<T>[]}
+   * @memberof VirtualList
+   */
   getViewItem(items: Item<T>[], startY: number, endY: number): Item<T>[] {
     let fromIndex = 0;
     let endIndex = items.length - 1;
@@ -79,7 +88,8 @@ export default class VirtualList<T = {}> {
     // find out whether these items in the viewport
     while (true) {
       index = Math.floor((fromIndex + endIndex) / 2);
-      if (index <= 0) return [];
+      // fromIndex will not be same with endIndex. Because if fromIndex equals to endIndex then previous index equals to endIndex or fromIndex
+      if (index === fromIndex && fromIndex === endIndex - 1) return [];
       const direction = this.getItemDirection(items[index], startY, endY);
       if (direction === -1) fromIndex = index;
       else if (direction === 1) endIndex = index;
@@ -105,6 +115,7 @@ export default class VirtualList<T = {}> {
   }
 
   /**
+   * check whether the item is in the viewport
    * @param {Item<T>} item item to be checked
    * @param {number} startY container startY
    * @param {number} endY container endY
