@@ -59,6 +59,7 @@ const virtualWaterFall = {
       this.width = this.$el.getBoundingClientRect().width;
       this.waterfall.width = this.width;
       this.waterfall.calculateAll();
+      this.virtualList.initOffsetTop();
       this.virtualList.setItems(this.waterfall);
       this.update();
     }, 200);

@@ -28,7 +28,6 @@ export default class VirtualList<T = {}> {
     this.listener = throttle(this._listener, 100);
     window.addEventListener('scroll', this.listener.bind(this));
     this._listener();
-    console.log('virtualList', this);
   }
 
   initOffsetTop() {
