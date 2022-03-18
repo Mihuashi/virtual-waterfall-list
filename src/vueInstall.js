@@ -19,6 +19,7 @@ const virtualWaterFall = {
       cacheItems: [],
       width: 0,
       initialized: false,
+      waterfall: null,
     }
   },
   watch: {
