@@ -21,10 +21,14 @@ export interface BaseInitItem {
 
 type Item<T> = BaseItem & T;
 type InitItem<T> = BaseInitItem & T;
- 
+
 interface Options {
   width: number;
   maxHeight?: number;
+  defaultItemSize: {
+    height: number;
+    width: number;
+  };
 }
 export default class Waterfall<P = {}> {
   width: number;
@@ -42,6 +46,11 @@ export default class Waterfall<P = {}> {
   isFirstLine = true;
 
   options: Options;
+
+  defaultItemSize!: {
+    height: number;
+    width: number;
+  };
 
   get nowRowWidth(): number {
     let width = 0;
@@ -63,13 +72,30 @@ export default class Waterfall<P = {}> {
   }
 
   constructor(items: InitItem<P>[], options: Options) {
+    this.defaultItemSize = {
+      width: options.defaultItemSize.width,
+      height: options.defaultItemSize.height,
+    };
     this.width = options.width;
     this.options = options;
     this.add(items);
   }
 
+  handleItemsSizeError(items: InitItem<P>[]): InitItem<P>[] {
+    const data = [...items];
+    data.forEach((datum) => {
+      if (typeof datum.height !== 'number' || !datum.height) {
+        datum.height = this.defaultItemSize.height;
+      }
+      if (typeof datum.width !== 'number' || !datum.width) {
+        datum.width = this.defaultItemSize.width;
+      }
+    });
+    return data;
+  }
+
   add(items: InitItem<P>[]): Item<P>[] {
-    this.initItems = this.initItems.concat(items);
+    this.initItems = this.initItems.concat(this.handleItemsSizeError(items));
     const rItems = this.calculateItemAndToItems(items);
     return rItems;
   }

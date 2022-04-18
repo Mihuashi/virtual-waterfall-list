@@ -22,6 +22,10 @@ declare type InitItem<T> = BaseInitItem & T;
 interface Options {
     width: number;
     maxHeight?: number;
+    defaultItemSize: {
+        height: number;
+        width: number;
+    };
 }
 export default class Waterfall<P = {}> {
     width: number;
@@ -32,9 +36,14 @@ export default class Waterfall<P = {}> {
     nowRow: Item<P>[];
     isFirstLine: boolean;
     options: Options;
+    defaultItemSize: {
+        height: number;
+        width: number;
+    };
     get nowRowWidth(): number;
     get nowRowMinBottomItem(): Item<{}> | Item<P>;
     constructor(items: InitItem<P>[], options: Options);
+    handleItemsSizeError(items: InitItem<P>[]): InitItem<P>[];
     add(items: InitItem<P>[]): Item<P>[];
     calculateItemAndToItems(items: InitItem<P>[]): Item<P>[];
     calculateItem(initItem: InitItem<P>): Item<P>;

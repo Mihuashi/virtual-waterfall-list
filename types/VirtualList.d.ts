@@ -21,8 +21,17 @@ export default class VirtualList<T = {}> {
     initOffsetTop(): void;
     setItems({ topItems, bottomItems, }: ItemsObj<T>): void;
     _listener(): void;
+    /**
+     * get items array between startY and endY
+     * @param {Item<T>[]} items
+     * @param {number} startY
+     * @param {number} endY
+     * @return {*}  {Item<T>[]}
+     * @memberof VirtualList
+     */
     getViewItem(items: Item<T>[], startY: number, endY: number): Item<T>[];
     /**
+     * check whether the item is in the viewport
      * @param {Item<T>} item item to be checked
      * @param {number} startY container startY
      * @param {number} endY container endY

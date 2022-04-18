@@ -13,6 +13,15 @@ const virtualWaterFall = {
       type: Number,
       default: null,
     },
+    defaultItemSize: {
+      type: Object,
+      default() {
+        return {
+          height: 500,
+          width: 500,
+        };
+      },
+    },
   },
   data() {
     return {
@@ -51,7 +60,7 @@ const virtualWaterFall = {
   },
   mounted() {
     this.width = this.$el.getBoundingClientRect().width;
-    this.waterfall = new this.$Waterfall(this.items, { width: this.width, maxHeight: this.maxHeight });
+    this.waterfall = new this.$Waterfall(this.items, { width: this.width, maxHeight: this.maxHeight, defaultItemSize: this.defaultItemSize });
     this.virtualList = new VirtualList(this.$el, this.waterfall);
     this.initialized = true;
     this.virtualList.on('change', this.update.bind(this));

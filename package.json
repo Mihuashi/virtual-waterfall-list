@@ -1,6 +1,6 @@
 {
   "name": "virtual-waterfall-list",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "virtual waterfall list",
   "keywords": [
     "virtual",
@@ -15,7 +15,7 @@
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "yarn build:2 && yarn build:3",
+    "build": "yarn build:2 && yarn build:3 && yarn dts",
     "build:2": "vue-demi-switch 2 vue2 && rollup -c",
     "build:3": "vue-demi-switch 3 && rollup -c",
     "test": "karma start ./test/karma.config.js",
