@@ -1,4 +1,3 @@
-import { isVue3 } from 'vue-demi';
 import { defineConfig } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
 import { terser } from "rollup-plugin-terser";
@@ -7,11 +6,17 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 export default defineConfig([
   {
     input: './src/index.ts',
-    output: {
-      file: `dist/${isVue3 ? '3' : '2'}/index.js`,
-      format: 'cjs',
-    },
-    external: ['vue'],
+    output: [
+      {
+        file: 'dist/cjs/index.js',
+        format: 'cjs',
+      },
+      {
+        file: 'dist/esm/index.js',
+        format: 'esm',
+      }
+    ],
+    external: ['vue', 'vue-demi'],
     plugins: [
       typescript({ sourceMap: false }),
       nodeResolve(),
@@ -20,12 +25,18 @@ export default defineConfig([
   },
   {
     input: './src/vueInstall.js',
-    output: {
-      file: `dist/${isVue3 ? '3' : '2'}/vue.js`,
-      format: 'cjs',
-      exports: 'default',
-    },
-    external: ['vue'],
+    output: [
+      {
+        file: `dist/cjs/vue.js`,
+        format: 'cjs',
+        exports: 'default',
+      },
+      {
+        file: 'dist/esm/vue.js',
+        format: 'esm',
+      },
+    ],
+    external: ['vue', 'vue-demi'],
     plugins: [
       typescript({ sourceMap: false }),
       nodeResolve(),
