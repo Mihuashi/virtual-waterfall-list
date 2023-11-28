@@ -1,13 +1,13 @@
 # virtual-waterfall-list
-virtual waterfall list    
+virtual waterfall list
 <img src="https://Senasiko.github.io/images/virtual-waterfall.gif">
 ## usage
 ```
-npm install virtual-waterfall-list
+pnpm add @mhs-fe/virtual-waterfall-list
 ```
 ### Waterfall
 ```typescript
-import { Waterfall } from 'virtual-waterfall-list';
+import { Waterfall } from '@mhs-fe/virtual-waterfall-list';
 
 const waterfall = new Waterfall(items, options);
 
@@ -23,13 +23,13 @@ console.log(waterfall.items);
 ```
 ### VirtualList
 ```typescript
-import { VirtualList } from 'virtual-waterfall-list';
+import { VirtualList } from '@mhs-fe/virtual-waterfall-list';
 
 /**
  * item {
  *   y: number;
  *   height: number;
- * } 
+ * }
  */
 const virtualList = new VirtualList(dom, items);
 let viewItems = virtualList.viewItems;
@@ -44,7 +44,7 @@ console.log(viewItems);
 ### in Vue
 ```javascript
 import Vue from 'vue';
-import VirtualWaterfall from 'virtual-waterfall-list/dist/vue';
+import VirtualWaterfall from '@mhs-fe/virtual-waterfall-list/dist/vue';
 
 Vue.use(VirtualWaterfall);
 ```
